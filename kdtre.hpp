@@ -15,8 +15,26 @@ private:
         Node * r;
         Node * l;
     };
+    typedef std::vector <Node *>  VectorNodes;
+    typedef std::vector <VectorNodes> MatrixNodes;
+    typedef std::stack <Node *> StackNodes;
 
     Node * root = nullptr;
+
+    void nodeToStack (Node * & n, StackNodes & s, MatrixNodes & v){
+        s.push (n);
+        if (s.size () > v.size()){
+            VectorNodes temp;
+            v.push_back (temp);
+        }
+        if (n->l)
+            nodeToStack (n->l, s, v);
+        if (n->r)
+            nodeToStack (n->r, s, v);
+
+        v[s.size() - 1].push_back(n);
+        s.pop ();
+    }
 
 public:
     kdtre() = default;
@@ -99,6 +117,28 @@ public:
         }
 
         return false;
+    }
+
+    void print (){
+        if (root){
+            StackNodes stacknodes;
+            MatrixNodes vec;
+            nodeToStack (root, stacknodes, vec);
+            for (int i = 0; i < vec.size(); i++){
+                if (i%2)
+                    std::cout << "y:  ";
+                else
+                    std::cout << "x:  ";
+                for(int j = 0; j < vec [i].size(); j++)
+                    std::cout << vec [i] [j]->coor[0] << "," << vec [i][j]->coor [1] << " ";
+                std::cout << "\n";
+            }
+        }
+        else
+        {
+            std::cout << "Not nodes\n";
+        }
+        
     }
 
 };
