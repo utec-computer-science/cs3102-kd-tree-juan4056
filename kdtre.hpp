@@ -9,12 +9,27 @@ template <class Any>
 class kdtre
 {
 private:
+    struct Node {
+        Any coor [k];
+        Node * r;
+        Node * l;
+    }
+
+    Node * root;
+
 public:
     kdtre() = default;
     ~kdtre() = default;
 
-    void insert ();
-    void search ();
+    void insert (Any * coor)
+    {
+
+    }
+
+    void search (Any * coor)
+    {
+
+    }
 
 };
 
