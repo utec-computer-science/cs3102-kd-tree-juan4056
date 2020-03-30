@@ -66,9 +66,39 @@ public:
             root = newNode;
     }
 
-    void search (Any * coor)
+    bool search (Any * coor)
     {
+        if (root) {
+            int t = 0;
+            Node * temp = root;
+            while(true){
+                int eq_coors = 0;
+                for (; eq_coors < k; eq_coors++){
+                    if (temp->coor [eq_coors] != coor [eq_coors])
+                        break;
+                }
 
+                if (eq_coors == k)
+                    return true;
+
+                if (temp->coor [t % k] <= coor [t % k]){
+                    if (temp->r)
+                        temp = temp->r;
+                    else
+                        break;
+                }
+                else{
+                    if (temp->l)
+                        temp = temp->l;
+                    else
+                        break;
+                }          
+
+                t++;    
+            }
+        }
+
+        return false;
     }
 
 };
